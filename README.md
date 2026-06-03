@@ -1,3 +1,17 @@
+# XplServices HRM System
+
+A production-grade, comprehensive Human Resource Management (HRM) system built to streamline workforce management, employee operations, and organizational workflows. This repository contains both the Next.js frontend client and the Express backend server.
+
+---
+
+## 🏗️ Project Structure
+
+```text
+xplservices-hrm/
+├── Frontend/           # Next.js User Interface (App Router)
+├── server/             # Node.js & Express API Server
+├── prisma/             # Database ORM Schemas & Migrations
+└── README.md           # Root Documentation
 # HR Backend Server
 
 Express server with Prisma ORM and PostgreSQL (Neon) database connection.
