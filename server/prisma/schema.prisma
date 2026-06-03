@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Employee {
+  id                Int       @id @default(autoincrement())
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  username          String    @unique
+  password          String
+  role              String    @default("EMPLOYEE")
+  isActive          Boolean   @default(true)
+  lastLogin         DateTime?
+  firstName         String
+  lastName          String
+  email             String    @unique
+  profilePicture    String?   @db.LongText
+  nickName          String?
+  dob               String?
+  age               Int?
+  gender            String?
+  maritalStatus     String?
+  nationality       String?
+  skills            String?
+  linkedin          String?
+  twitter           String?
+  employeeId        String    @unique
+  employmentType    String
+  jobTitle          String
+  position          String
+  department        String?
+  businessUnit      String?
+  reportingManager  String?
+  workLocation      String
+  remoteRate        Float?
+  onsiteRate        Float?
+  rateBasis         String?
+  dateOfJoining     DateTime?
+  employeeStatus    String?
+  leavePolicy       String?
+  timesheetRequired Boolean   @default(false)
+  workPhone         String?
+  personalPhone     String?
+  presentAddress    String?
+  permanentAddress  String?
+  emergencyName     String?
+  relationship      String?
+  emergencyPhone    String?
+  bankName          String?
+  bankCountry       String?
+  accountType       String?
+  accountNumber     String?
+  iban              String?
+  routingCode       String?
+  swiftCode         String?
+  ifscCode          String?
+  firstEntry        DateTime?
+  latestExit        DateTime?
+  latestEntry       DateTime?
+  daysFromEntry     Int?
+  exitDate          DateTime?
+  exitReason        String?
+  canJoinAgain      Boolean   @default(false)
+
+  // ✅ add this
+  notifications Notification[]
+}
+
+enum NotificationType {
+  EMPLOYEE_CREATED
+  LOGIN
+}
+
+model Notification {
+  id          String           @id @default(cuid())
+  recipientId Int // ✅ must match Employee.id type (Int)
+  type        NotificationType
+  message     String
+  createdAt   DateTime         @default(now())
+
+  recipient Employee @relation(fields: [recipientId], references: [id])
+
+  @@index([recipientId])
+}
